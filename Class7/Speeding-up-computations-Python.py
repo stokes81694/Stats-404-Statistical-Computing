@@ -1,9 +1,10 @@
+from typing import Union
 
 import numpy as np
 import pandas as pd
 
 
-def bin_departure_delays(delay_min):
+def bin_departure_delays(delay_min: float) -> str:
     if delay_min <= 15:
         return "no_delay"
     elif (delay_min > 15) & (delay_min <= 30):
@@ -18,7 +19,7 @@ def bin_departure_delays(delay_min):
         return "missing_delay"
 
 
-def delays_requiring_compensation(arrival_delay, departure_delay):
+def delays_requiring_compensation(arrival_delay: np.float64, departure_delay: np.float64) -> int:
     """Fcn to return if arrival and/or departure delay resulted in passenger
        compensation.
        
@@ -37,18 +38,21 @@ def delays_requiring_compensation(arrival_delay, departure_delay):
     return count
 
 
-get_ipython().run_cell_magic('time', '', "df['compensated_delays'] = df[['ArrDelay', 'DepDelay']].apply(\n    lambda row: delays_requiring_compensation(row[0], row[1]),\n    axis=1)")
-def delays_requiring_compensation_vec(arrival_delay, departure_delay):
-    """Fcn to return if arrival and/or departure delay resulted in passenger
-       compensation.
+def delays_requiring_compensation_vec(
+        arrival_delay: Union[pd.Series, np.ndarray],
+        departure_delay: Union[pd.Series, np.ndarray]) ->  Union[pd.Series,
+                                                                 np.ndarray]:
+    """Vectorized fcn to return if arrival and/or departure delay resulted in
+       passenger compensation.
        
        Arguments:
-           - arrival_delay:   delay in minutes
-           - departure_delay: delay in minutes
+           - arrival_delay:   vector of flight departure delays, in minutes
+           - departure_delay: vector of flight arrival delays, in minutes
        
        Returns:
-           - number of delays (arrival and or departure) that were delayed
-             so long that passenger got compensated
+           - compensated_delays: vector of flights with "1s" when delay
+                                 resulted in passenger
+                                 compensation
     """
     count_arrival_delays = arrival_delay >= (3 * 60.0)
     count_depaprture_delays = departure_delay >= (2 * 60.0)
@@ -57,7 +61,6 @@ def delays_requiring_compensation_vec(arrival_delay, departure_delay):
     return compensated_delays
 
 
-get_ipython().run_cell_magic('time', '', "df['compensated_delays_vec'] = delays_requiring_compensation_vec(df['ArrDelay'], df['DepDelay'])")
 file_name = "https://s3.amazonaws.com/h2o-airlines-unpacked/year2012.csv"
 # file_name = "../Class3/2012.csv"
 df = pd.read_csv(filepath_or_buffer=file_name,
@@ -68,6 +71,11 @@ df['DepDelay'] = df['DepDelay'].fillna(9999)
 df['ArrDelay'] = df['ArrDelay'].fillna(9999)
 
 
-get_ipython().run_cell_magic('time', '', "df['compensated_delays_vec_np'] = delays_requiring_compensation_vec(df['ArrDelay'].values, df['DepDelay'].values)")
+df['compensated_delays'] = df[['ArrDelay', 'DepDelay']].apply(
+    lambda row: delays_requiring_compensation(row[0], row[1]), axis=1)
 
+df['compensated_delays_vec'] = delays_requiring_compensation_vec(
+    df['ArrDelay'], df['DepDelay'])
 
+df['compensated_delays_vec_np'] = delays_requiring_compensation_vec(
+    df['ArrDelay'].values, df['DepDelay'].values)
