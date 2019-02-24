@@ -1,8 +1,6 @@
 
 import numpy as np
 import pandas as pd
-file_name = "https://s3.amazonaws.com/h2o-airlines-unpacked/year2012.csv"
-get_ipython().run_cell_magic('time', '', 'df = pd.read_csv(filepath_or_buffer=file_name,\n                 encoding=\'latin-1\')\n# df = pd.read_csv("../Class3/2012.csv")')
 
 
 def bin_departure_delays(delay_min):
