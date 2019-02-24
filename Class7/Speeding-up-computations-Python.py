@@ -60,6 +60,14 @@ def delays_requiring_compensation_vec(arrival_delay, departure_delay):
 
 
 get_ipython().run_cell_magic('time', '', "df['compensated_delays_vec'] = delays_requiring_compensation_vec(df['ArrDelay'], df['DepDelay'])")
+file_name = "https://s3.amazonaws.com/h2o-airlines-unpacked/year2012.csv"
+# file_name = "../Class3/2012.csv"
+df = pd.read_csv(filepath_or_buffer=file_name,
+                 encoding='latin-1',
+                 nrows=100)
+# Replace times of cancelled flights with value 9999:
+df['DepDelay'] = df['DepDelay'].fillna(9999)
+df['ArrDelay'] = df['ArrDelay'].fillna(9999)
 
 
 get_ipython().run_cell_magic('time', '', "df['compensated_delays_vec_np'] = delays_requiring_compensation_vec(df['ArrDelay'].values, df['DepDelay'].values)")
