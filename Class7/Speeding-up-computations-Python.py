@@ -61,21 +61,21 @@ def delays_requiring_compensation_vec(
     return compensated_delays
 
 
-file_name = "https://s3.amazonaws.com/h2o-airlines-unpacked/year2012.csv"
-# file_name = "../Class3/2012.csv"
-df = pd.read_csv(filepath_or_buffer=file_name,
-                 encoding='latin-1',
-                 nrows=100)
-# Replace times of cancelled flights with value 9999:
-df['DepDelay'] = df['DepDelay'].fillna(9999)
-df['ArrDelay'] = df['ArrDelay'].fillna(9999)
+if __name__ == '__main__':
+    # file_name = "https://s3.amazonaws.com/h2o-airlines-unpacked/year2012.csv"
+    file_name = "../Class3/2012.csv"
+    df = pd.read_csv(filepath_or_buffer=file_name,
+                     encoding='latin-1',
+                     nrows=100)
+    # Replace times of cancelled flights with value 9999:
+    df['DepDelay'] = df['DepDelay'].fillna(9999)
+    df['ArrDelay'] = df['ArrDelay'].fillna(9999)
 
+    df['compensated_delays'] = df[['ArrDelay', 'DepDelay']].apply(
+        lambda row: delays_requiring_compensation(row[0], row[1]), axis=1)
 
-df['compensated_delays'] = df[['ArrDelay', 'DepDelay']].apply(
-    lambda row: delays_requiring_compensation(row[0], row[1]), axis=1)
+    df['compensated_delays_vec'] = delays_requiring_compensation_vec(
+        df['ArrDelay'], df['DepDelay'])
 
-df['compensated_delays_vec'] = delays_requiring_compensation_vec(
-    df['ArrDelay'], df['DepDelay'])
-
-df['compensated_delays_vec_np'] = delays_requiring_compensation_vec(
-    df['ArrDelay'].values, df['DepDelay'].values)
+    df['compensated_delays_vec_np'] = delays_requiring_compensation_vec(
+        df['ArrDelay'].values, df['DepDelay'].values)
