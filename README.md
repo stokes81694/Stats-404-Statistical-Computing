@@ -1,10 +1,10 @@
 # UCLA Stats 404 - Statistical Computing and Programming
 
 ## Overview
-- UCLA [Course](https://www.google.com/url?q=https%3A%2F%2Fsa.ucla.edu%2Fro%2FPublic%2FSOC%2FResults%2FClassDetail%3Fterm_cd%3D19W%26subj_area_cd%3DSTATS%2520%2520%26crs_catlg_no%3D0404%2520%2520%2520%2520%26class_id%3D663608200%26class_no%3D%2520001%2520%2520&sa=D&sntz=1&usg=AFQjCNHKe-oOqxd0cfxMUmSD7CjTKXvJUQ) Listing (Python)
-- [Syllabus](https://goo.gl/BTYQxB) 
-- [Class](https://www.ikukuyeva.com/tutorials/machine-learning/ucla-stats-404-statistical-computing-and-programming) website
-- [GitHub](https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fikukuyeva%2FStats-404-W19-Statistical-Computing&sa=D&sntz=1&usg=AFQjCNGFsAHCgF6zYNcwoAknihQV5xPfWw) repository with code examples for each lecture
+- UCLA [Course](https://sa.ucla.edu/ro/Public/SOC/Results/ClassDetail?term_cd=20W&subj_area_cd=STATS%20%20&crs_catlg_no=0404%20%20%20%20&class_id=663608200&class_no=%20001%20%20) Listing (Python)
+- [Syllabus](http://bit.ly/2qFGCQ8) 
+- [Class](http://bit.ly/Python-0-to-Prod) website
+- This [GitHub](https://github.com/ikukuyeva/Stats-404-W19-Statistical-Computing) repository with code examples for each lecture
 
 
 ## Lectures
